@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ember &amp; Oak — Modern Fire-Kitchen Dining</title>
+<meta name="description" content="Ember & Oak is a modern fire-kitchen restaurant. Seasonal ingredients, open flame, unforgettable evenings. Book your table.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12100d; --bg2:#191612; --panel:#201c16;
+    --cream:#f3ead9; --muted:#a89d89; --line:rgba(243,234,217,.12);
+    --gold:#c8994f; --gold2:#e2bc74;
+    --serif:'Cormorant Garamond', Georgia, serif;
+    --sans:'Jost', 'Segoe UI', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  section{padding:110px 0}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.1}
+  .eyebrow{display:inline-flex;align-items:center;gap:14px;text-transform:uppercase;letter-spacing:.35em;font-size:.72rem;color:var(--gold);font-weight:500}
+  .eyebrow::before{content:"";width:36px;height:1px;background:var(--gold)}
+  .sec-title{font-size:clamp(2.2rem,4.5vw,3.4rem);margin:18px 0 14px}
+  .sec-sub{color:var(--muted);max-width:520px}
+
+  /* ---------- Header ---------- */
+  header{position:fixed;inset:0 0 auto 0;z-index:50;transition:.35s;padding:22px 0}
+  header.scrolled{background:rgba(18,16,13,.88);backdrop-filter:blur(14px);padding:14px 0;border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:var(--serif);font-size:1.5rem;font-weight:700;letter-spacing:.04em}
+  .logo span{color:var(--gold)}
+  .nav-links{display:flex;gap:38px;list-style:none;align-items:center}
+  .nav-links a{font-size:.8rem;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);transition:.25s}
+  .nav-links a:hover{color:var(--cream)}
+  .btn{display:inline-block;padding:14px 32px;border:1px solid var(--gold);color:var(--gold2);font-size:.78rem;text-transform:uppercase;letter-spacing:.22em;font-weight:500;transition:.3s;background:transparent;cursor:pointer;font-family:var(--sans)}
+  .btn:hover{background:var(--gold);color:#171310}
+  .btn.solid{background:var(--gold);color:#171310}
+  .btn.solid:hover{background:var(--gold2);border-color:var(--gold2)}
+  .burger{display:none;background:none;border:none;cursor:pointer;z-index:60;width:34px;height:26px;position:relative}
+  .burger span{position:absolute;left:0;width:100%;height:2px;background:var(--cream);transition:.3s}
+  .burger span:nth-child(1){top:2px}.burger span:nth-child(2){top:12px}.burger span:nth-child(3){top:22px}
+  .burger.open span:nth-child(1){top:12px;transform:rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){top:12px;transform:rotate(-45deg)}
+
+  /* ---------- Hero ---------- */
+  .hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:140px 0 90px;
+    background:linear-gradient(rgba(18,16,13,.72),rgba(18,16,13,.9)),
+    url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat, var(--bg2)}
+  .hero-inner{max-width:760px}
+  .hero h1{font-size:clamp(3rem,7.5vw,5.6rem);margin:22px 0 24px}
+  .hero h1 em{font-style:italic;color:var(--gold2)}
+  .hero p{color:var(--muted);font-size:1.08rem;max-width:520px;margin-bottom:40px}
+  .hero-cta{display:flex;gap:18px;flex-wrap:wrap}
+  .hero-meta{position:absolute;bottom:36px;left:0;right:0}
+  .hero-meta .wrap{display:flex;gap:44px;flex-wrap:wrap;color:var(--muted);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+  .hero-meta strong{color:var(--cream);font-weight:500}
+
+  /* ---------- Story ---------- */
+  .story .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:center}
+  .story-imgs{position:relative}
+  .frame{background:linear-gradient(135deg,#2a241b,#1a1712);overflow:hidden}
+  .frame img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+  .frame:hover img{transform:scale(1.05)}
+  .story-imgs .main{aspect-ratio:4/5}
+  .story-imgs .float{position:absolute;width:46%;aspect-ratio:1;right:-8%;bottom:-9%;border:6px solid var(--bg);display:block}
+  .story-stats{display:flex;gap:40px;margin-top:44px}
+  .stat b{display:block;font-family:var(--serif);font-size:2.4rem;font-weight:600;color:var(--gold2)}
+  .stat span{font-size:.78rem;text-transform:uppercase;letter-spacing:.18em;color:var(--muted)}
+
+  /* ---------- Menu ---------- */
+  .menu{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .menu-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:52px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .tab{background:none;border:1px solid var(--line);color:var(--muted);padding:11px 24px;font-family:var(--sans);font-size:.78rem;text-transform:uppercase;letter-spacing:.18em;cursor:pointer;transition:.25s}
+  .tab:hover{color:var(--cream)}
+  .tab.active{border-color:var(--gold);color:var(--gold2)}
+  .panel{display:none;grid-template-columns:1fr 1fr;gap:14px 60px}
+  .panel.active{display:grid;animation:fade .5s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .dish{display:flex;justify-content:space-between;gap:18px;padding:22px 0;border-bottom:1px dashed var(--line)}
+  .dish h3{font-size:1.35rem;font-weight:600}
+  .dish p{color:var(--muted);font-size:.92rem;margin-top:4px}
+  .price{font-family:var(--serif);font-size:1.3rem;color:var(--gold2);white-space:nowrap}
+
+  /* ---------- Gallery ---------- */
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .gallery-grid .frame{aspect-ratio:1}
+  .gallery-grid .frame:nth-child(1){grid-column:span 2;aspect-ratio:2/1}
+  .gallery-grid .frame:nth-child(4){grid-column:span 2;aspect-ratio:2/1}
+
+  /* ---------- Quotes ---------- */
+  .quotes{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:56px}
+  .quote{background:var(--panel);border:1px solid var(--line);padding:38px 32px}
+  .stars{color:var(--gold2);letter-spacing:4px;margin-bottom:18px;font-size:.85rem}
+  .quote p{font-family:var(--serif);font-size:1.22rem;font-style:italic;line-height:1.5}
+  .quote footer{margin-top:22px;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.16em}
+  .quote footer b{color:var(--cream);font-weight:500;display:block;letter-spacing:.1em}
+
+  /* ---------- Reserve ---------- */
+  .reserve .wrap{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+  .r-form{background:var(--panel);border:1px solid var(--line);padding:44px}
+  .r-form h3{font-size:1.7rem;margin-bottom:26px}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);margin-bottom:8px}
+  .field input,.field select{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--cream);padding:13px 15px;font-family:var(--sans);font-size:.95rem;outline:none;transition:.25s}
+  .field input:focus,.field select:focus{border-color:var(--gold)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .form-ok{display:none;text-align:center;padding:30px 0}
+  .form-ok .tick{font-size:2.6rem;color:var(--gold2)}
+  .form-ok h4{font-family:var(--serif);font-size:1.6rem;margin:10px 0 6px}
+  .form-ok p{color:var(--muted)}
+  .info-list{list-style:none;margin-top:34px}
+  .info-list li{display:flex;gap:16px;padding:16px 0;border-bottom:1px dashed var(--line);color:var(--muted)}
+  .info-list b{color:var(--cream);font-weight:500;min-width:110px}
+
+  /* ---------- Footer ---------- */
+  .site-footer{padding:70px 0 40px;border-top:1px solid var(--line)}
+  .f-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:50px}
+  .f-grid p{color:var(--muted);max-width:320px;margin-top:14px;font-size:.95rem}
+  .f-grid h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.22em;color:var(--gold);margin-bottom:18px;font-weight:500;font-family:var(--sans)}
+  .f-grid ul{list-style:none}
+  .f-grid ul li{margin-bottom:10px;color:var(--muted);font-size:.95rem}
+  .f-grid ul a:hover{color:var(--cream)}
+  .f-bottom{margin-top:56px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.8rem;letter-spacing:.06em}
+  .f-bottom a{color:var(--gold2)}
+
+  /* ---------- Reveal ---------- */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.visible{opacity:1;transform:none}
+  .d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:900px){
+    section{padding:80px 0}
+    .story .wrap,.reserve .wrap{grid-template-columns:1fr;gap:50px}
+    .panel{grid-template-columns:1fr}
+    .quote-grid{grid-template-columns:1fr}
+    .gallery-grid{grid-template-columns:1fr 1fr}
+    .gallery-grid .frame:nth-child(1),.gallery-grid .frame:nth-child(4){grid-column:span 2}
+    .f-grid{grid-template-columns:1fr;gap:36px}
+    .nav-links{position:fixed;inset:0;background:rgba(18,16,13,.97);backdrop-filter:blur(10px);flex-direction:column;justify-content:center;gap:30px;transform:translateX(100%);transition:transform .4s ease}
+    .nav-links.open{transform:none}
+    .nav-links a{font-size:1rem}
+    .burger{display:block}
+  }
+  @media(max-width:520px){
+    .row2{grid-template-columns:1fr}
+    .story-stats{gap:24px;flex-wrap:wrap}
+    .story-imgs .float{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="wrap nav">
+    <a href="#top" class="logo">Ember <span>&amp;</span> Oak</a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#reserve" class="btn solid" style="padding:11px 24px">Reserve</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-inner">
+    <span class="eyebrow reveal">Fire-Kitchen &middot; Est. 2019</span>
+    <h1 class="reveal d1">Where every dish <em>meets the flame</em></h1>
+    <p class="reveal d2">Seasonal ingredients, an open fire, and a room built for slow evenings. Ember &amp; Oak is modern dining shaped by smoke and patience.</p>
+    <div class="hero-cta reveal d3">
+      <a href="#reserve" class="btn solid">Book a Table</a>
+      <a href="#menu" class="btn">Explore the Menu</a>
+    </div>
+  </div>
+  <div class="hero-meta">
+    <div class="wrap">
+      <span>Open <strong>Tue – Sun, 5pm – 11pm</strong></span>
+      <span>Find us <strong>14 Harbor Lane, Old Town</strong></span>
+      <span>Call <strong>(555) 014-2890</strong></span>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="wrap">
+    <div class="story-imgs reveal">
+      <div class="frame main"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1000&q=80" alt="Elegant dining room at Ember and Oak" loading="lazy" onerror="this.remove()"></div>
+      <div class="frame float"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80" alt="Flame-grilled dish" loading="lazy" onerror="this.remove()"></div>
+    </div>
+    <div>
+      <span class="eyebrow reveal">Our Story</span>
+      <h2 class="sec-title reveal d1">Cooked slowly.<br>Served warmly.</h2>
+      <p class="sec-sub reveal d2">We started with one oak-fired grill and a simple belief: food tastes better when it takes its time. Today our kitchen works entirely over live fire — no shortcuts, no freezers, just farmers we know by name and a menu that changes with the seasons.</p>
+      <div class="story-stats reveal d3">
+        <div class="stat"><b>7+</b><span>Years of fire</span></div>
+        <div class="stat"><b>32</b><span>Local farms</span></div>
+        <div class="stat"><b>4.9</b><span>Guest rating</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="menu">
+  <div class="wrap">
+    <div class="menu-head">
+      <div>
+        <span class="eyebrow reveal">The Menu</span>
+        <h2 class="sec-title reveal d1" style="margin-bottom:0">Tonight&rsquo;s highlights</h2>
+      </div>
+      <div class="tabs reveal d2" role="tablist">
+        <button class="tab active" data-panel="starters" role="tab" aria-selected="true">Starters</button>
+        <button class="tab" data-panel="mains" role="tab" aria-selected="false">Mains</button>
+        <button class="tab" data-panel="desserts" role="tab" aria-selected="false">Desserts</button>
+      </div>
+    </div>
+
+    <div class="panel active" id="starters" role="tabpanel">
+      <div class="dish"><div><h3>Charred Leek &amp; Burrata</h3><p>Smoked honey, toasted hazelnut, lemon oil</p></div><span class="price">$14</span></div>
+      <div class="dish"><div><h3>Ember-Baked Sourdough</h3><p>Bone-marrow butter, flaked sea salt</p></div><span class="price">$9</span></div>
+      <div class="dish"><div><h3>Fire-Kissed Prawns</h3><p>Garlic, chili, charred lime, herb oil</p></div><span class="price">$18</span></div>
+      <div class="dish"><div><h3>Roasted Beet Carpaccio</h3><p>Whipped goat cheese, pistachio, aged balsamic</p></div><span class="price">$13</span></div>
+    </div>
+
+    <div class="panel" id="mains" role="tabpanel">
+      <div class="dish"><div><h3>Oak-Fired Ribeye</h3><p>28-day aged, smoked shallot, red-wine jus</p></div><span class="price">$42</span></div>
+      <div class="dish"><div><h3>Cedar-Plank Salmon</h3><p>Brown-butter capers, charred asparagus</p></div><span class="price">$34</span></div>
+      <div class="dish"><div><h3>Half Chicken al Mattone</h3><p>Brick-pressed, salsa verde, fire potatoes</p></div><span class="price">$28</span></div>
+      <div class="dish"><div><h3>Smoked Mushroom Risotto</h3><p>Porcini broth, aged parmesan, truffle</p></div><span class="price">$26</span></div>
+    </div>
+
+    <div class="panel" id="desserts" role="tabpanel">
+      <div class="dish"><div><h3>Burnt Basque Cheesecake</h3><p>Ember-caramel, orange zest</p></div><span class="price">$12</span></div>
+      <div class="dish"><div><h3>Dark Chocolate Fondant</h3><p>Smoked salt, vanilla-bean cream</p></div><span class="price">$13</span></div>
+      <div class="dish"><div><h3>Grilled Peach &amp; Mascarpone</h3><p>Amaretti crumble, thyme honey</p></div><span class="price">$11</span></div>
+      <div class="dish"><div><h3>Affogato al Fuoco</h3><p>Fire-roasted espresso, hazelnut gelato</p></div><span class="price">$9</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <span class="eyebrow reveal">Gallery</span>
+    <h2 class="sec-title reveal d1">Evenings at Ember &amp; Oak</h2>
+    <div class="gallery-grid" style="margin-top:52px">
+      <div class="frame reveal"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" alt="Warmly lit restaurant interior" loading="lazy" onerror="this.remove()"></div>
+      <div class="frame reveal d1"><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=800&q=80" alt="Plated salmon dish with herbs" loading="lazy" onerror="this.remove()"></div>
+      <div class="frame reveal d2"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" alt="Seasonal dishes on a shared table" loading="lazy" onerror="this.remove()"></div>
+      <div class="frame reveal d3"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1200&q=80" alt="Chef plating a signature course" loading="lazy" onerror="this.remove()"></div>
+    </div>
+  </div>
+</section>
+
+<section class="quotes" id="reviews">
+  <div class="wrap">
+    <span class="eyebrow reveal">Guest Reviews</span>
+    <h2 class="sec-title reveal d1">Word travels fast</h2>
+    <div class="quote-grid">
+      <article class="quote reveal"><div class="stars">★★★★★</div><p>"The ribeye alone is worth the trip. Easily the best meal we've had this year."</p><footer><b>Sarah M.</b>Anniversary dinner</footer></article>
+      <article class="quote reveal d1"><div class="stars">★★★★★</div><p>"Candlelight, smoke, incredible service. It feels like a special occasion every time."</p><footer><b>Daniel R.</b>Regular guest</footer></article>
+      <article class="quote reveal d2"><div class="stars">★★★★★</div><p>"Booked for a client dinner and everyone was blown away. Flawless from start to finish."</p><footer><b>Amira K.</b>Business dinner</footer></article>
+    </div>
+  </div>
+</section>
+
+<section class="reserve" id="reserve">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow reveal">Reservations</span>
+      <h2 class="sec-title reveal d1">Your table is waiting</h2>
+      <p class="sec-sub reveal d2">Evenings fill up quickly, especially Friday and Saturday. Reserve online and we&rsquo;ll have everything ready when you arrive.</p>
+      <ul class="info-list reveal d3">
+        <li><b>Hours</b> Tue – Sun · 5:00pm – 11:00pm</li>
+        <li><b>Address</b> 14 Harbor Lane, Old Town District</li>
+        <li><b>Phone</b> (555) 014-2890</li>
+        <li><b>Groups</b> Private dining room for up to 18 guests</li>
+      </ul>
+    </div>
+    <div class="r-form reveal d2">
+      <form id="bookForm" novalidate>
+        <h3>Book a table</h3>
+        <div class="row2">
+          <div class="field"><label for="bName">Name</label><input id="bName" type="text" placeholder="Your name" required></div>
+          <div class="field"><label for="bPhone">Phone</label><input id="bPhone" type="tel" placeholder="(555) 000-0000" required></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="bDate">Date</label><input id="bDate" type="date" required></div>
+          <div class="field"><label for="bTime">Time</label>
+            <select id="bTime"><option>5:00 pm</option><option>6:00 pm</option><option>7:00 pm</option><option>8:00 pm</option><option>9:00 pm</option></select>
+          </div>
+        </div>
+        <div class="field"><label for="bGuests">Guests</label>
+          <select id="bGuests"><option>2 guests</option><option>3 guests</option><option>4 guests</option><option>5 guests</option><option>6+ guests</option></select>
+        </div>
+        <button type="submit" class="btn solid" style="width:100%;margin-top:8px">Confirm Reservation</button>
+      </form>
+      <div class="form-ok" id="formOk">
+        <div class="tick">✦</div>
+        <h4>Reservation received</h4>
+        <p>We&rsquo;ll confirm by phone shortly. See you soon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <a href="#top" class="logo">Ember <span>&amp;</span> Oak</a>
+        <p>A modern fire-kitchen in the heart of Old Town. Seasonal menus, open flame, and evenings worth slowing down for.</p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <ul>
+          <li>14 Harbor Lane, Old Town</li>
+          <li>Tue – Sun · 5pm – 11pm</li>
+          <li>(555) 014-2890</li>
+          <li>hello@emberandoak.demo</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#story">Our Story</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reserve">Reservations</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 Ember &amp; Oak. Fictional demo restaurant.</span>
+      <span>Demo website designed by <a href="./">Ahmed Hamdy</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky header
+  var header = document.getElementById('header');
+  window.addEventListener('scroll', function(){
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile nav
+  var burger = document.getElementById('burger');
+  var navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', function(){
+    var open = navLinks.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  navLinks.addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){
+      navLinks.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+    }
+  });
+
+  // Menu tabs
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('.panel');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      panels.forEach(function(p){ p.classList.remove('active'); });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected','true');
+      document.getElementById(tab.dataset.panel).classList.add('active');
+    });
+  });
+
+  // Reveal on scroll
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el); });
+
+  // Fake booking form
+  var form = document.getElementById('bookForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    form.style.display = 'none';
+    document.getElementById('formOk').style.display = 'block';
+  });
+</script>
+</body>
+</html>
