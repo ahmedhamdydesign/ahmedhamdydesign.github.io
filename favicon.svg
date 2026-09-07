@@ -1,0 +1,26 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#16161d"/>
+      <stop offset="1" stop-color="#0a0a0c"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="14" y1="46" x2="50" y2="16" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7c5cff"/>
+      <stop offset="0.5" stop-color="#ff5c8a"/>
+      <stop offset="1" stop-color="#ffc24b"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="24" y1="40" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff5c8a"/>
+      <stop offset="1" stop-color="#ffc24b"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="64" height="64" rx="7" fill="url(#tile)"/>
+  <rect x="0.5" y="0.5" width="63" height="63" rx="6.5" fill="none" stroke="#f5f5f7" stroke-opacity="0.06"/>
+  <g fill="url(#mark)">
+    <path d="M18 46 L24.5 18 L31 18 L37.5 46 L31.2 46 L29.9 39.5 L25.3 39.5 L23.9 46 Z M26.2 34.6 L29 34.6 L27.6 27.4 Z"/>
+    <path d="M40 18 L45.6 18 L45.6 29.6 L40 29.6 Z"/>
+  </g>
+  <rect x="40" y="18" width="5.6" height="28" fill="url(#mark)"/>
+  <rect x="51.2" y="18" width="5.6" height="28" fill="url(#mark)"/>
+  <rect x="44" y="29.4" width="9.6" height="5.2" fill="url(#bar)"/>
+</svg>

@@ -1,0 +1,12 @@
+{
+  "name": "Ahmed Hamdy | Graphic Designer & Illustrator",
+  "short_name": "Ahmed Hamdy",
+  "description": "Logos, brand identities, character design, and comic art.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0c",
+  "theme_color": "#0a0a0c",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
