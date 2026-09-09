@@ -1,12 +1,10 @@
 {
-  "name": "Ahmed Hamdy | Graphic Designer & Illustrator",
+  "name": "Ahmed Hamdy, Comic and Character Artist",
   "short_name": "Ahmed Hamdy",
-  "description": "Logos, brand identities, character design, and comic art.",
+  "description": "Hand-drawn comic art, character design and book covers. No AI.",
   "start_url": "/",
-  "display": "standalone",
-  "background_color": "#0a0a0c",
-  "theme_color": "#0a0a0c",
-  "icons": [
-    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
-  ]
+  "display": "browser",
+  "background_color": "#F3EFE6",
+  "theme_color": "#F3EFE6",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
 }
