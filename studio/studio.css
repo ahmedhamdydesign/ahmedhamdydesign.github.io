@@ -1,0 +1,41 @@
+/* ══ Hamdy Studio, additions on top of ../css/style.css ═════ */
+[hidden]{display:none!important}
+
+/* ── the two of us ── */
+.team{max-width:var(--max);margin:0 auto;display:grid;gap:clamp(1.8rem,3vw,2.6rem);grid-template-columns:1fr 1fr}
+@media(max-width:760px){.team{grid-template-columns:1fr}}
+.member{background:#fff;border:var(--bw) solid var(--ink);box-shadow:var(--off) var(--off) 0 var(--ink);padding:clamp(1.4rem,3vw,2.2rem);display:flex;flex-direction:column}
+.member--omar{box-shadow:var(--off) var(--off) 0 var(--red)}
+.member__top{display:flex;align-items:center;gap:1.1rem;margin-bottom:1.2rem}
+.member__mono{flex:none;width:64px;height:64px;display:grid;place-items:center;background:var(--yel);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);font-family:Anton,Impact,sans-serif;font-size:1.7rem;line-height:1}
+.member h3{font-size:clamp(2rem,1.4rem + 2vw,2.8rem)}
+.member p{color:var(--mute)}
+.member .member__role{margin:.4rem 0 0;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.member__link{margin-top:auto;align-self:flex-start;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:3px solid var(--yel);padding-bottom:2px}
+.member__link:hover{border-color:var(--red)}
+
+/* ── why two artists ── */
+.perks{max-width:var(--max);margin:0 auto;padding:0;list-style:none;display:grid;gap:1.8rem;grid-template-columns:repeat(4,1fr)}
+@media(max-width:1000px){.perks{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.perks{grid-template-columns:1fr}}
+.perks li{border-top:4px solid var(--yel);padding-top:1.2rem}
+.perks span{font-family:Anton,Impact,sans-serif;font-size:2.2rem;line-height:1;display:block;margin-bottom:.5rem;color:var(--yel);text-shadow:3px 3px 0 var(--red)}
+.perks h3{font-size:1.5rem;line-height:1;margin-bottom:.6rem;color:var(--paper)}
+.perks p{color:var(--mute-dark);font-size:.95rem;margin:0}
+
+/* ── credit band that opens each portfolio ── */
+.band{background:var(--yel);background-image:radial-gradient(rgba(17,17,17,.14) 1px,transparent 1.2px);background-size:9px 9px;border-top:4px solid var(--ink);padding:clamp(3rem,6vw,5rem) var(--pad)}
+.band__in{max-width:var(--max);margin:0 auto}
+.band__k{display:inline-block;background:var(--ink);color:var(--yel);font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.35rem .7rem;margin:0 0 1rem}
+.band h2{font-size:clamp(3.6rem,1.8rem + 8vw,9rem)}
+.band__role{margin:1rem 0 0;font-weight:700;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;color:#3E3A33}
+
+/* ── Omar's gallery ── */
+.grid--3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){.grid--3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.grid--3{grid-template-columns:1fr}}
+.soon{max-width:var(--max);margin:0 auto;border:4px dashed var(--ink);background:var(--paper-2);padding:clamp(1.6rem,4vw,3rem);display:grid;gap:.3rem;justify-items:start}
+.soon .soon__k{color:var(--ink);font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-size:clamp(1.6rem,1.2rem + 1.5vw,2.2rem);line-height:1;margin:0 0 .5rem}
+.soon p{max-width:56ch;color:var(--mute)}
+.soon .btn{margin-top:.6rem}
+.case__role--sketch{max-width:var(--max);margin:0 auto 1.6rem}
