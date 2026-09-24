@@ -1,0 +1,10 @@
+{
+  "name": "Omar Hamdy, Comic and Character Artist",
+  "short_name": "Omar Hamdy",
+  "description": "Hand-drawn comic art, character design and book covers. No AI.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#F3EFE6",
+  "theme_color": "#F3EFE6",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
