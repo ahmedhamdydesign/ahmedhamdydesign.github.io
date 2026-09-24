@@ -17,8 +17,9 @@
   ];
   var track = document.getElementById('mtrack');
   if (track) {
+    var base = track.getAttribute('data-base') || 'assets/work/'; /* pages in subfolders point back to the shared art */
     var html = strip.map(function (s, i) {
-      return '<img src="assets/work/' + s[0] + '.jpg" alt="" width="' + s[1] + '" height="' + s[2] +
+      return '<img src="' + base + s[0] + '.jpg" alt="" width="' + s[1] + '" height="' + s[2] +
         '" loading="' + (i < 5 ? 'eager' : 'lazy') + '" decoding="async">';
     }).join('');
     track.innerHTML = html + html.replace(/loading="eager"/g, 'loading="lazy"');
