@@ -1,33 +1,31 @@
-/* ══ Hamdy Studio, additions on top of ../css/style.css ═════ */
-[hidden]{display:none!important}
+/* ══ Hamdy Studio additions ══════════════════════════════ */
+.perks{max-width:var(--max);margin:0 auto;padding:0;list-style:none;display:grid;gap:1.6rem;grid-template-columns:repeat(3,1fr)}
+.perks li{background:#fff;border:var(--bw) solid var(--ink);box-shadow:var(--off) var(--off) 0 var(--ink);padding:1.5rem 1.4rem 1.3rem}
+.perks li:nth-child(3n+2){box-shadow:var(--off) var(--off) 0 var(--red)}
+.perks li:nth-child(3n){box-shadow:var(--off) var(--off) 0 var(--yel)}
+.perks span{font-family:Anton,Impact,sans-serif;font-size:2rem;line-height:1;display:block;margin-bottom:.6rem;text-shadow:3px 3px 0 var(--yel)}
+.perks h3{font-size:1.55rem;margin-bottom:.6rem}
+.perks p{color:#3E3A33;font-size:.95rem;margin:0}
+@media(max-width:900px){.perks{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.perks{grid-template-columns:1fr}}
+.flow{max-width:var(--max);margin:clamp(3.5rem,7vw,5.5rem) auto 0}
+.flow .steps{margin-top:1rem}
 
-/* ── the two of us ── */
-.team{max-width:var(--max);margin:0 auto;display:grid;gap:clamp(1.8rem,3vw,2.6rem);grid-template-columns:1fr 1fr}
+.team{max-width:var(--max);margin:0 auto;display:grid;gap:1.8rem;grid-template-columns:1fr 1fr}
 @media(max-width:760px){.team{grid-template-columns:1fr}}
-.member{background:#fff;border:var(--bw) solid var(--ink);box-shadow:var(--off) var(--off) 0 var(--ink);padding:clamp(1.4rem,3vw,2.2rem);display:flex;flex-direction:column}
-.member--omar{box-shadow:var(--off) var(--off) 0 var(--red)}
-.member__top{display:flex;align-items:center;gap:1.1rem;margin-bottom:1.2rem}
-.member__mono{flex:none;width:64px;height:64px;display:grid;place-items:center;background:var(--yel);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);font-family:Anton,Impact,sans-serif;font-size:1.7rem;line-height:1}
-.member h3{font-size:clamp(2rem,1.4rem + 2vw,2.8rem)}
-.member p{color:var(--mute)}
-.member .member__role{margin:.4rem 0 0;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
-.member__link{margin-top:auto;align-self:flex-start;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:3px solid var(--yel);padding-bottom:2px}
-.member__link:hover{border-color:var(--red)}
-
-/* ── why two artists ── */
-.perks{max-width:var(--max);margin:0 auto;padding:0;list-style:none;display:grid;gap:1.8rem;grid-template-columns:repeat(4,1fr)}
-@media(max-width:1000px){.perks{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.perks{grid-template-columns:1fr}}
-.perks li{border-top:4px solid var(--yel);padding-top:1.2rem}
-.perks span{font-family:Anton,Impact,sans-serif;font-size:2.2rem;line-height:1;display:block;margin-bottom:.5rem;color:var(--yel);text-shadow:3px 3px 0 var(--red)}
-.perks h3{font-size:1.5rem;line-height:1;margin-bottom:.6rem;color:var(--paper)}
-.perks p{color:var(--mute-dark);font-size:.95rem;margin:0}
-
-/* ── credit band that opens each portfolio ── */
-.band{background:var(--yel);background-image:radial-gradient(rgba(17,17,17,.14) 1px,transparent 1.2px);background-size:9px 9px;border-top:4px solid var(--ink);padding:clamp(3rem,6vw,5rem) var(--pad)}
-.band__in{max-width:var(--max);margin:0 auto}
-.band__k{display:inline-block;background:var(--ink);color:var(--yel);font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.35rem .7rem;margin:0 0 1rem}
-.band h2{font-size:clamp(3.6rem,1.8rem + 8vw,9rem)}
-.band__note{max-width:60ch;margin:1.2rem 0 0;color:#3E3A33;font-size:1rem}
-.band__role{margin:1rem 0 0;font-weight:700;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;color:#3E3A33}
-
+.member{border:var(--bw) solid #fff;box-shadow:var(--off) var(--off) 0 var(--yel);padding:1.8rem 1.6rem;background:var(--ink-2)}
+.member:nth-child(2){box-shadow:var(--off) var(--off) 0 var(--red)}
+.member__mono{width:84px;height:84px;display:grid;place-items:center;background:var(--yel);color:var(--ink);border:3px solid #fff;font-family:Anton,Impact,sans-serif;font-size:2.1rem;margin-bottom:1.2rem;box-shadow:4px 4px 0 var(--red)}
+.member:nth-child(2) .member__mono{background:var(--red);color:#fff;box-shadow:4px 4px 0 var(--yel)}
+.member h3{font-size:clamp(2rem,1.4rem + 2vw,2.8rem);color:var(--paper)}
+.member__role{margin:.5rem 0 1rem;font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--yel)}
+.member p{color:var(--mute-dark)}
+.tags{list-style:none;padding:0;margin:1.2rem 0 0;display:flex;flex-wrap:wrap;gap:.5rem}
+.tags li{border:2px solid var(--paper);color:var(--paper);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .6rem}
+.perks{grid-template-columns:repeat(2,1fr)}
+@media(max-width:600px){.perks{grid-template-columns:1fr}}
+.covers{grid-template-columns:1.5fr 1fr 1fr 1fr}
+.covers .fig--lead{grid-column:auto;grid-row:auto}
+@media(max-width:900px){.covers{grid-template-columns:repeat(2,1fr)}.covers .fig--lead{grid-column:1/-1}}
+.burst{right:-6%;top:-14%;width:clamp(96px,9vw,128px)}
+@media(max-width:960px){.stack{order:1;margin:2.4rem 0 0}.burst{right:-2%;top:-12%;width:88px}}
