@@ -31,3 +31,4 @@
 @media(max-width:960px){.stack{order:1;margin:2.4rem 0 0}.burst{right:-2%;top:-12%;width:88px}}
 .nav__links a{white-space:nowrap}
 @media(min-width:901px) and (max-width:1240px){.nav__links{gap:1rem;font-size:.72rem;letter-spacing:.1em}}
+.nav .btn--sm{white-space:nowrap}
