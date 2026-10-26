@@ -1,34 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Page not found: Ahmed Hamdy</title>
+<title>Page not found | Ahmed Hamdy</title>
 <meta name="robots" content="noindex">
+<meta name="description" content="This page does not exist. The portfolio of Ahmed Hamdy, illustrator and designer in Cairo, is one page.">
 <meta name="theme-color" content="#F3EFE6">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<style>
-.nf{min-height:80vh;display:grid;place-items:center;text-align:center;padding:clamp(3rem,8vw,6rem) var(--pad)}
-.nf h1{font-size:clamp(3rem,2rem + 6vw,7rem);margin:1rem 0 1.2rem}
-.nf p{max-width:44ch;color:var(--mute);margin:0 auto 2rem}
-</style>
+<meta name="color-scheme" content="light">
+<!-- Root-relative paths on purpose: GitHub Pages serves this file for any missing URL, at any depth. -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/portfolio.css">
+<script>document.documentElement.className = 'js';</script>
 </head>
 <body>
 <header class="nav">
-  <a class="nav__id" href="/">Ahmed&nbsp;Hamdy</a>
-  <a class="btn btn--sm" href="/#contact">Hire me</a>
+  <div class="nav__bar">
+    <a class="nav__id" href="/"><span class="nav__mark" aria-hidden="true">AH</span><span class="nav__name">Ahmed&nbsp;Hamdy</span></a>
+    <a class="btn btn--sm nav__cta" href="/#contact">Hire me</a>
+  </div>
 </header>
 <main class="nf">
-  <div>
-    <p class="eyebrow">404 &middot; Page not found</p>
-    <h1>That page walked off the panel.</h1>
-    <p>The link you followed does not exist on this site. Everything I have is on the one page.</p>
-    <a class="btn" href="/">Back to the work</a>
+  <div class="wrap nf__in">
+    <div>
+      <p class="tag"><b>404</b> Page not found</p>
+      <h1>That page walked off the panel.</h1>
+      <p class="lead">The link you followed does not exist on this site. Everything I have is on the one page.</p>
+      <div class="hero__cta">
+        <a class="btn" href="/">Back to the work <svg class="arr" width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M0 6h15M10 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.4"/></svg></a>
+        <a class="btn btn--ghost" href="/#work">Selected work</a>
+      </div>
+    </div>
+    <figure class="nf__art">
+      <span class="sfx" aria-hidden="true">Huh?</span>
+      <picture><source type="image/webp" srcset="/assets/work/webp/sketch-04-480.webp 480w, /assets/work/webp/sketch-04-800.webp 800w" sizes="(max-width: 800px) 300px, 440px"><img src="/assets/work/sketch-04.jpg" alt="Pencil storyboard rough that reads At first, Auntie May didn't understand everything we said. A puzzled girl sits by the TV while two women talk on the floor." width="1600" height="1131" decoding="async"></picture>
+    </figure>
   </div>
 </main>
+<footer class="foot">
+  <div class="wrap foot__in">
+    <p>&copy; <span id="yr">2026</span> Ahmed Hamdy. Cairo, Egypt.</p>
+    <a href="/">Back to the work</a>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 </body>
 </html>
