@@ -16,9 +16,7 @@
   function setMenu(open, returnFocus) {
     if (!nav || !toggle) return;
     nav.classList.toggle('is-open', open);
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    var lbl = toggle.querySelector('.lbl');
-    if (lbl) lbl.textContent = open ? 'Close menu' : 'Menu';
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); /* the icon turns into an X; the name stays "Menu" */
     if (!open && returnFocus) toggle.focus();
   }
   if (nav && toggle && links) {
@@ -151,9 +149,12 @@
     lbImg.alt = img ? img.alt : '';
     var dpr = window.devicePixelRatio || 1;
     var shown = lbImg.getBoundingClientRect().width || Math.min(window.innerWidth, 1600);
-    var full = bestSrc(a, Math.min(shown, w || shown) * dpr);
+    var need = Math.min(shown, w || shown) * dpr;
+    var full = bestSrc(a, need);
     /* show the thumbnail already on the page only if it has loaded, then swap in the sharp file */
     var thumb = (img && img.complete && img.naturalWidth) ? img.currentSrc : '';
+    var tw = /-(\d+)\.webp(\?|$)/.exec(thumb); /* files are named name-<width>.webp */
+    if (tw && +tw[1] >= need) full = thumb;   /* already sharp enough: no extra download */
     lbImg.src = thumb || full;
     if (thumb !== full) {
       var pre = new Image();
@@ -164,11 +165,11 @@
     lbCap.innerHTML = '';
     if (title) { var b = doc.createElement('b'); b.textContent = title; lbCap.appendChild(b); }
     if (sub) lbCap.appendChild(doc.createTextNode(sub));
+    var g = a.getAttribute('data-group');
     var pos = doc.createElement('span');
     pos.className = 'vh';
-    pos.textContent = ', ' + (idx + 1) + ' of ' + list.length;
+    pos.textContent = ', ' + (GROUP_NAMES[g] ? GROUP_NAMES[g] + ', ' : '') + (idx + 1) + ' of ' + list.length;
     lbCap.appendChild(pos);
-    var g = a.getAttribute('data-group');
     lbCount.textContent = (GROUP_NAMES[g] ? GROUP_NAMES[g] + ' · ' : '') + (idx + 1) + ' / ' + list.length;
     /* warm up the next piece only, and not at all when the visitor asked to save data */
     if (list.length > 1 && !saveData) {
