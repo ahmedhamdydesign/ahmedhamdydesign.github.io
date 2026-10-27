@@ -12,7 +12,7 @@ from PIL import Image
 
 SRC = 'assets/work'
 OUT = 'assets/work/webp'
-WIDTHS = (480, 800, 1200, 1600)
+WIDTHS = (480, 640, 800, 1200, 1600)
 QUALITY = 80  # tested: keeps paper grain and brush texture; AVIF at the same size did not
 
 
@@ -21,9 +21,9 @@ def build(name):
     im = Image.open(os.path.join(SRC, name))
     im.load()
     if im.mode not in ('RGB', 'RGBA'):
-        im = im.convert('RGBA' if 'transparency' in im.info else 'RGB')
+        im = im.convert('RGBA' if (im.mode in ('LA', 'PA') or 'transparency' in im.info) else 'RGB')
     widths = [w for w in WIDTHS if w <= im.width]
-    if im.width - max(widths) > 100:  # e.g. a 1556px original also gets a 1556 copy
+    if not widths or im.width - max(widths) > 100:  # small originals, or e.g. a 1556px one, also get a copy at their own width
         widths.append(im.width)
     made = []
     for w in widths:
