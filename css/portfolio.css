@@ -351,6 +351,13 @@ strong{font-weight:700}
   .logos figcaption{font-size:.8rem}
 }
 
+/* ── interiors grouped into sets (same book, same characters) ── */
+.set + .set{margin-top:clamp(3.5rem,6.5vw,5.5rem)}
+.set > .sub-h{margin-top:0}
+.sec--dark .set > .sub-h{color:var(--paper)}
+.logos--4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:900px){.logos--4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 /* ── The Drifter pages ── */
 .pages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:calc(var(--gap) + var(--off) + var(--bw));align-items:start}
 .pg{margin:0;position:relative}
@@ -379,6 +386,23 @@ strong{font-weight:700}
 .steps h3{margin-bottom:.5rem}
 .steps p{color:#38342E;font-size:.97rem;margin:0}
 @media(max-width:900px){.steps{grid-template-columns:minmax(0,1fr)}}
+.sub-h + .steps{margin-top:0}
+.steps--5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.steps--5 li{padding:1.2rem 1.1rem 1.15rem}
+.steps--5 .n{font-size:2rem}
+.steps--5 h3{font-size:clamp(1.25rem,1.1rem + .4vw,1.5rem)}
+.steps--5 p{font-size:.93rem}
+@media(max-width:1100px){.steps--5{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){.steps--5{grid-template-columns:minmax(0,1fr)}}
+/* who owns the art / what to send */
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1.3rem,2.4vw,2rem);margin-top:clamp(2rem,4vw,3rem)}
+.facts__item{background:var(--ink);color:var(--paper);border:var(--bw) solid var(--ink);box-shadow:var(--off) var(--off) 0 var(--white);padding:1.4rem 1.35rem 1.3rem}
+.facts__item h3{font-size:var(--fs-h3);color:var(--yel);margin-bottom:.6rem}
+.facts__item p{margin:0;color:var(--paper)}
+.facts__item ul{margin:0;padding-left:1.15rem}
+.facts__item li{margin:.25rem 0;color:var(--paper)}
+.facts__item li::marker{color:var(--yel)}
+@media(max-width:700px){.facts{grid-template-columns:minmax(0,1fr)}}
 
 /* ── guidelines ── */
 .guides{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:calc(var(--gap) + var(--off) + var(--bw))}
