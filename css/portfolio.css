@@ -216,27 +216,18 @@ strong{font-weight:700}
 @keyframes pop{from{opacity:0;transform:rotate(-10deg) scale(.4)}}
 @keyframes draw{from{transform:rotate(-1.4deg) scaleX(0)}}
 
-/* ticker band */
-.ticker{position:relative;background:var(--ink);color:var(--yel);border-block:4px solid var(--ink);overflow:hidden;padding:.95rem 0;white-space:nowrap}
-.ticker__track{display:flex;width:max-content}
-.ticker__set{display:flex;align-items:center;gap:1.6rem;padding-right:1.6rem;font:400 clamp(1.25rem,1rem + 1.1vw,2rem)/1 var(--display);letter-spacing:.04em;text-transform:uppercase}
-.ticker__set svg{width:.9em;height:.9em;flex:none;color:var(--red)}
-@media(prefers-reduced-motion:no-preference){
-  .ticker__track{animation:tick 38s linear infinite}
-  .ticker:hover .ticker__track,.ticker.is-paused .ticker__track{animation-play-state:paused}
+/* strip: what I make, set as a ruled credits line */
+.strip{
+  list-style:none;margin:0;padding:.85rem 0;border-block:1px solid var(--ink);
+  display:flex;flex-wrap:wrap;justify-content:center;align-items:center;row-gap:.35rem;
+  font:400 clamp(.95rem,.85rem + .35vw,1.2rem)/1.15 var(--display);letter-spacing:.07em;text-transform:uppercase
 }
-@keyframes tick{to{transform:translateX(-25%)}}
-.js .ticker::after{content:"";position:absolute;top:0;bottom:0;right:0;width:calc(var(--gut) + 44px + 2.5rem);background:linear-gradient(90deg,rgba(17,17,17,0),var(--ink) 2rem);pointer-events:none}
-.ticker__pause{position:absolute;z-index:1;right:var(--gut);top:50%;translate:0 -50%;display:grid;place-items:center;width:44px;height:44px;padding:0;cursor:pointer;background:var(--yel);color:var(--ink);border:3px solid var(--ink)}
-.ticker__pause:hover{background:var(--white)}
-.ticker__pause:focus-visible{background:var(--red);color:var(--white);outline:3px solid var(--yel);outline-offset:-8px;box-shadow:none}
-.ticker__pause svg{width:18px;height:18px}
-.ticker__pause .i-play,.ticker__pause[aria-pressed="true"] .i-pause{display:none}
-.ticker__pause[aria-pressed="true"] .i-play{display:inline}
-.no-js .ticker__pause{display:none}
-.no-js .ticker__track{animation:none}
-@media(prefers-reduced-motion:reduce){.ticker::after{display:none}}
-@media(prefers-reduced-motion:reduce){.ticker__pause{display:none}}
+.strip li{display:inline-flex;align-items:center}
+.strip li + li::before{
+  content:"";flex:none;width:.62em;height:.62em;margin:0 .95rem;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E4362B' d='M12 0l2.6 8.2L23 6.5l-5.6 6.2L22 19.6l-8-2.3L12 24l-2-6.7-8 2.3 4.6-6.9L1 6.5l8.4 1.7z'/%3E%3C/svg%3E") center/contain no-repeat
+}
+@media(max-width:480px){.strip li + li::before{margin:0 .6rem}}
 
 /* ══ SECTIONS ═════════════════════════════════════════════════════ */
 .sec{position:relative;padding:clamp(4.5rem,9vw,8.5rem) 0;border-top:4px solid var(--ink)}
@@ -489,15 +480,304 @@ strong{font-weight:700}
 /* ══ reduced motion: switch it all off ════════════════════════════ */
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
-  .stack:hover .stack__p--1{transform:rotate(2.6deg)}
-  .stack:hover .stack__p--2{transform:rotate(-4.2deg)}
-  .stack:hover .stack__p--3{transform:rotate(-8deg)}
   .zoom:hover img,.zoom:focus-visible img,.btn:hover{transform:none}
 }
 
 @media print{
-  .nav,.ticker,.lb,.more > summary,.skip{display:none!important}
+  .nav,.lb,.more > summary,.skip{display:none!important}
   .rv{opacity:1!important;translate:none!important}
   .more::details-content{content-visibility:visible;display:block}
   body{background:#fff}
+}
+
+/* ══ v11 · Editorial layer ═══════════════════════════════════════════
+   Sits on top of everything above. Same Ink and Paper identity (tokens,
+   Anton + Work Sans, halftone, yellow caption boxes, the NO AI burst),
+   with a hierarchy where the art leads:
+   - art sits on flat paper as a printed plate (thin keyline, soft offset);
+     the loud red or yellow slab shows on hover and keyboard focus
+   - section openers: big outlined number, short eyebrow, smaller h2,
+     the intro set beside it in a ruled column
+   - a straight three-plate hero with larger art
+   ══════════════════════════════════════════════════════════════════ */
+
+:root{
+  --max:1400px;
+  --bw:1px;                 /* keyline around art */
+  --off:6px;                /* plate offset */
+  --gap:clamp(1rem,2.2vw,2rem);
+  --fs-h2:clamp(2.125rem,1.5rem + 2.1vw,3.375rem);
+  --fs-num:clamp(4rem,2rem + 6.4vw,9.25rem);
+  --fs-hero:clamp(2.75rem,1.25rem + 4vw,5rem);
+  /* section palette, set per ground below */
+  --s-bg:var(--paper);
+  --s-fg:var(--ink);
+  --s-mute:var(--mute);
+  --s-line:rgba(17,17,17,.82);
+  --s-plate:rgba(60,45,20,.13);
+  --s-hover:var(--red);
+  --s-rule:rgba(17,17,17,.22);
+  --s-flag:var(--red-text);
+  --s-tagb:var(--ink);
+  --s-tags:var(--ink);
+  --s-ui-shadow:var(--ink);
+  --s-dot:rgba(17,17,17,.13);
+}
+@media(min-width:700px){:root{--bw:1px;--off:7px}}
+
+/* ── type ── */
+h2{font-size:var(--fs-h2);line-height:.94;letter-spacing:.004em}
+h3{font-size:clamp(1.25rem,1.15rem + .4vw,1.5rem)}
+
+/* ── UI marks keep the hard shadow, lighter ── */
+.tag{border-width:2px;padding:.36rem .6rem .32rem;margin:0 0 .9rem;font:700 .75rem/1.15 var(--text);letter-spacing:.13em;box-shadow:3px 3px 0 var(--ink)}
+.tag b{font-size:.95rem}
+.btn{border-width:2px;box-shadow:5px 5px 0 var(--yel);font-size:.8125rem}
+.btn:hover{box-shadow:7px 7px 0 var(--red)}
+.btn--ghost{box-shadow:5px 5px 0 var(--ink)}
+.btn--ghost:hover{box-shadow:7px 7px 0 var(--ink)}
+.btn--sm{box-shadow:3px 3px 0 var(--yel)}
+.btn--sm:hover{box-shadow:5px 5px 0 var(--red)}
+.nav{border-bottom-width:2px}
+.nav__mark{border-width:2px;box-shadow:2px 2px 0 var(--ink)}
+@media(max-width:1060px){.js .nav__toggle{border-width:2px;box-shadow:2px 2px 0 var(--ink)}}
+
+/* ══ HERO: headline + three straight plates ═════════════════════════ */
+.hero{padding:clamp(1.5rem,3.2vw,3rem) 0 clamp(2.25rem,4vw,3.5rem)}
+.hero__inner{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(2rem,4.5vw,4.5rem)}
+.hero__h1{font-size:var(--fs-hero);line-height:.9;margin-bottom:clamp(1.25rem,.9rem + 1vw,2rem);text-wrap:wrap;max-width:9.6em}
+.hero__h1 .ln{display:inline}
+.hero__h1 .ln:last-child{display:block;margin-top:.04em}
+.hand::after{height:.075em;bottom:-.14em}
+.hero__sub{font-size:clamp(1.0625rem,1rem + .2vw,1.1875rem);max-width:44ch}
+.hero__cta{margin-top:1.6rem}
+
+/* one tall cover on the right, two stacked on the left, no tilt */
+.stack{aspect-ratio:100/79;max-width:none;width:100%;justify-self:stretch}
+.stack__p{transform:none}
+.stack__p--1{width:63%;right:0;left:auto;top:0;bottom:auto;z-index:2}
+.stack__p--3{width:33.5%;left:0;top:0;bottom:auto;z-index:1}
+.stack__p--2{width:33.5%;left:0;bottom:0;top:auto;z-index:1}
+.stack__p img,.stack__p--2 img,.stack__p--3 img{border:0;box-shadow:0 0 0 1px var(--s-line),var(--off) var(--off) 0 1px var(--s-plate)}
+.stack__p--1 img{box-shadow:0 0 0 2px var(--ink),9px 9px 0 2px var(--ink)}
+.stack:hover .stack__p--1,.stack:hover .stack__p--2,.stack:hover .stack__p--3{transform:none}
+.stack__p .zoom:hover img,.stack__p .zoom:focus-visible img{transform:translate(-3px,-3px);box-shadow:0 0 0 2px var(--ink),10px 10px 0 2px var(--red)}
+.burst{left:-3.5%;top:-6%;width:clamp(78px,8vw,116px);transform:rotate(-8deg);filter:drop-shadow(4px 4px 0 var(--ink))}
+
+@media(max-width:960px){
+  /* headline, then the art, then the pitch and buttons */
+  .hero__inner{grid-template-columns:minmax(0,1fr);row-gap:0}
+  .hero__text{display:contents}
+  .hero .tag{order:1;justify-self:start}
+  .hero__h1{order:2}
+  .stack{order:3;max-width:520px;width:100%;justify-self:start;margin:2.2rem 0 1.6rem}
+  .hero__sub{order:4}
+  .hero__cta{order:5}
+}
+@media(max-width:560px){
+  .hero{padding-top:1.25rem}
+  .stack{width:calc(100% - 6px);max-width:none;margin-top:1.9rem}
+  .stack__p img,.stack__p--2 img,.stack__p--3 img{box-shadow:0 0 0 1px var(--s-line),4px 4px 0 1px var(--s-plate)}
+  .stack__p--1 img{box-shadow:0 0 0 1.5px var(--ink),5px 5px 0 1.5px var(--ink)}
+  .burst{width:70px;left:-2%;top:-7%}
+  .hero .tag{font-size:.75rem;letter-spacing:.08em}
+}
+
+/* ══ SECTIONS: flat grounds, numbered openers ═══════════════════════ */
+.sec{
+  padding:clamp(3.25rem,6vw,5.75rem) 0 clamp(3.75rem,6.5vw,6.25rem);
+  border-top:2px solid var(--ink);
+  background-color:var(--s-bg);background-image:none;color:var(--s-fg)
+}
+.sec--work{border-top:0;padding-top:clamp(2.75rem,5vw,4.5rem)}
+/* halftone kept as a printed edge at the top of each ground */
+.sec::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:clamp(70px,9vw,130px);pointer-events:none;
+  background-image:radial-gradient(var(--s-dot) 1px,transparent 1.3px);background-size:9px 9px;
+  -webkit-mask-image:linear-gradient(#000,transparent);mask-image:linear-gradient(#000,transparent)
+}
+.sec > .wrap{position:relative;z-index:1}
+
+/* grounds: ink for covers and the comic, paper-2 lanes, yellow for process */
+.sec--dark{
+  --s-bg:var(--ink);--s-fg:var(--paper);--s-mute:var(--mute-dark);
+  --s-line:rgba(255,253,248,.32);--s-plate:rgba(255,253,248,.12);--s-hover:var(--yel);
+  --s-rule:rgba(255,253,248,.2);--s-flag:var(--yel);--s-tagb:var(--yel);--s-tags:var(--red);
+  --s-ui-shadow:var(--yel);--s-dot:rgba(255,253,248,.07)
+}
+.sec--paper2{--s-bg:var(--paper-2);--s-mute:#47433C;--s-plate:rgba(60,45,20,.15)}
+.sec--yel{--s-bg:var(--yel);--s-mute:#2E2B26;--s-plate:rgba(80,50,0,.2);--s-rule:rgba(17,17,17,.35);--s-dot:rgba(17,17,17,.16)}
+
+/* section number: an outlined Anton numeral with a halftone fill */
+.sec__num{
+  grid-area:num;display:block;align-self:start;
+  font:400 var(--fs-num)/.8 var(--display);letter-spacing:-.005em;
+  color:transparent;-webkit-text-stroke:2px var(--s-fg);
+  background:radial-gradient(var(--s-fg) .9px,transparent 1.35px) 0 0/5px 5px;
+  -webkit-background-clip:text;background-clip:text;
+  padding-top:.02em;pointer-events:none;user-select:none
+}
+.sec--yel .sec__num{color:var(--white);background:none}
+@media(forced-colors:active){.sec__num,.sec--yel .sec__num{color:CanvasText;-webkit-text-stroke:0;background:none}}
+
+/* the tag becomes a small eyebrow; its number is drawn big beside it */
+.sec__head .tag b{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sec .tag{border-color:var(--s-tagb);box-shadow:3px 3px 0 var(--s-tags)}
+.sec .tag--ink{border-color:var(--ink);box-shadow:3px 3px 0 var(--red)}
+.sec__title h2,.sec__title h2.wide{max-width:none}
+/* the two long headings (process, brand) step down a size */
+.sec__title h2.wide{font-size:clamp(1.875rem,1.35rem + 1.75vw,2.875rem);line-height:.95}
+.sec__body{max-width:none;padding-top:0;color:var(--s-mute);font-size:1rem;line-height:1.62}
+.sec .sec__body{color:var(--s-mute)}
+.sec__body > p:first-child{font-size:clamp(1.0625rem,1rem + .2vw,1.1875rem);line-height:1.52;color:var(--s-fg)}
+.sec__body p{margin-bottom:.85em}
+
+/* the pull line in Process */
+.sec .sec__body > p.punch{font:400 clamp(1.6rem,1.2rem + 1.4vw,2.4rem)/1 var(--display);text-transform:uppercase;letter-spacing:.01em;color:var(--s-fg);margin:1.4rem 0 0;max-width:none}
+.punch span{display:block}
+.punch::after{content:"";display:block;width:3.5rem;height:4px;background:var(--red);margin-top:.75rem}
+
+/* desktop opener: [number] [eyebrow / h2] [intro in a ruled column] */
+@media(min-width:1000px){
+  .sec__head{
+    grid-template-columns:auto minmax(0,1.12fr) minmax(0,1fr);
+    grid-template-areas:"num tag ." "num h2 body";
+    column-gap:clamp(1.25rem,2.2vw,2.25rem);row-gap:0;align-items:start;
+    margin-bottom:clamp(2.25rem,3.6vw,3.25rem)
+  }
+  .sec__title{display:contents}
+  .sec__title .tag{grid-area:tag;justify-self:start}
+  .sec__title h2{grid-area:h2}
+  .sec__body{grid-area:body;border-left:1px solid var(--s-rule);padding:.15rem 0 0 clamp(1.25rem,2.4vw,2.25rem);margin-left:clamp(0rem,1vw,1rem)}
+  .sec--work .sec__head{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);grid-template-areas:"tag ." "h2 body"}
+  /* a credit note sits right under the heading, the intro stays in the ruled column */
+  .sec__head:has(.sec__title > .note){grid-template-areas:"num tag ." "num h2 body" "num note body";grid-template-rows:auto auto 1fr}
+  .sec__title > .note{grid-area:note;align-self:start;justify-self:start;max-width:32rem;margin:1.5rem 0 0}
+}
+
+/* tablet and phone: number beside the eyebrow, h2 full width, the first
+   paragraph (and any credit note) as a standfirst, then the first art,
+   then the rest of the text */
+@media(max-width:999px){
+  .sec > .wrap{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:.9rem;align-items:start}
+  .sec > .wrap > *,.sec__title h2,.sec__title > .note,.sec__body > *{grid-column:1/-1}
+  .sec__head,.sec__title,.sec__body{display:contents}
+  .sec__num{grid-area:1/1;order:-7;align-self:end;font-size:clamp(4rem,3rem + 4vw,5.5rem)}
+  .sec__title .tag{grid-area:1/2;order:-6;justify-self:start;align-self:end;margin:0 0 .3rem}
+  .sec--work .sec__title .tag{grid-area:1/1/2/-1}
+  .sec__title h2{order:-5;margin-top:.8rem}
+  .sec__body > p{margin:0;max-width:62ch}
+  .sec__body > p:first-child{order:-4}
+  .sec__title > .note,.sec__body > .punch{order:-3}
+  .sec__body > p:first-child{margin-top:1.1rem}
+  .sec__head + *{order:-2;margin-top:clamp(1.6rem,4vw,2.25rem)}
+  .sec__head + .logos{margin-bottom:0}
+  .sec__head + .guides-cover{margin-bottom:0}
+  .sec__body > p + p{margin-top:1rem}
+  .sec__body > p:nth-child(2){margin-top:clamp(1.75rem,4vw,2.25rem)}
+  .sec__body > p:last-child:not(:first-child){margin-bottom:clamp(1.75rem,4vw,2.25rem)}
+  #characters .sec__body > p:last-child,#covers .sec__body > p:last-child,#drifter .sec__body > p:last-child{margin-bottom:0}
+  .sec .sec__title > p.note{margin:1.25rem 0 0}
+  .sec .sec__body > p.punch{margin:1.2rem 0 0}
+  /* room for the SFX stickers that sit above the first piece */
+  .sec__head + .pages,.sec__head + .guides-cover{margin-top:2.75rem}
+}
+
+/* credit notes: still boxed and loud, tidier */
+.note,.sec .note{background:var(--white);color:var(--ink);border:2px solid var(--ink);border-left:7px solid var(--red);padding:.85rem 1.05rem;font-size:.9375rem;line-height:1.5;box-shadow:4px 4px 0 var(--s-ui-shadow);margin-top:1.25rem}
+
+/* ══ ARTWORK: printed plates ════════════════════════════════════════ */
+.piece img,.pg img,.sec .piece img,.sec .pg img,.sec .pg--cover img{
+  box-shadow:0 0 0 var(--bw) var(--s-line),var(--off) var(--off) 0 var(--bw) var(--s-plate);
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease)
+}
+.zoom:hover img,.zoom:focus-visible img,.sec .zoom:hover img,.sec .zoom:focus-visible img{
+  transform:translate(-3px,-3px);
+  box-shadow:0 0 0 1.5px var(--s-fg),calc(var(--off) + 3px) calc(var(--off) + 3px) 0 1.5px var(--s-hover)
+}
+.zoom:focus-visible{outline-offset:5px}
+.zoom::after{right:10px;bottom:10px;width:34px;height:34px;border-width:2px;background-size:19px}
+/* the printed Drifter cover keeps its loud slab: it is the one object on the ink */
+#drifter .pg--cover img{box-shadow:0 0 0 2px var(--paper),10px 10px 0 2px var(--red)}
+#drifter .pg--cover .zoom:hover img,#drifter .pg--cover .zoom:focus-visible img{box-shadow:0 0 0 2px var(--paper),13px 13px 0 2px var(--yel)}
+@media(max-width:640px){#drifter .pg--cover{width:72%}#drifter .pg--cover img{box-shadow:0 0 0 2px var(--paper),6px 6px 0 2px var(--red)}}
+
+/* captions: title, then the meta line under it */
+.piece figcaption,.sec .piece figcaption{
+  display:flex;flex-direction:column;align-items:flex-start;gap:.12rem;
+  margin-top:calc(var(--off) + .7rem);font:400 .875rem/1.4 var(--text);color:var(--s-mute)
+}
+.piece figcaption b,.sec .piece figcaption b{font-weight:600;font-size:1rem;letter-spacing:0;text-transform:none;color:var(--s-fg)}
+.piece figcaption span{letter-spacing:0}
+.piece figcaption .flag,.sec .piece figcaption .flag{margin-top:.3rem;font-size:.75rem;letter-spacing:.08em;color:var(--s-flag);border:1px solid currentColor;padding:.12rem .4rem .08rem;line-height:1.2}
+.pages figcaption,.sec .pages figcaption{margin-top:calc(var(--off) + .65rem);font:500 .875rem/1.3 var(--text);letter-spacing:.02em;text-transform:none;color:var(--s-mute)}
+
+/* rows and grids: same structure, calmer gutters */
+.rows{gap:calc(var(--gap) + var(--off) + 1.4rem)}
+.row{gap:calc(var(--gap) + var(--off) + var(--bw))}
+@media(max-width:640px){
+  .rows{gap:calc(var(--gap) + var(--off) + 1.1rem)}
+  .row{gap:calc(var(--gap) + var(--off) + 1.1rem)}
+  .row--two{gap:calc(1.1rem + var(--off)) calc(.8rem + var(--off))}
+  .row--two figcaption{font-size:.875rem}
+}
+.covers{gap:calc(var(--gap) + var(--off) + 1.1rem) calc(var(--gap) + var(--off))}
+.covers figcaption{min-height:3.4em}
+@media(max-width:640px){.covers{gap:calc(1.2rem + var(--off)) calc(.8rem + var(--off))}.covers figcaption{font-size:.875rem}}
+.logos{gap:calc(var(--gap) + var(--off) + 1rem) calc(var(--gap) + var(--off));margin-bottom:clamp(2.5rem,4.5vw,3.75rem)}
+@media(max-width:640px){.logos{gap:calc(1.1rem + var(--off)) calc(.8rem + var(--off))}.logos figcaption{font-size:.875rem}}
+.pages{gap:calc(var(--gap) + var(--off))}
+.sketches,.guides{gap:calc(var(--gap) + var(--off))}
+.guides-cover{margin-bottom:calc(var(--gap) + var(--off) + 1.2rem)}
+.set + .set{margin-top:clamp(2.75rem,5vw,4rem)}
+@media(min-width:641px){.logos--4{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* sub-heads: small narration boxes */
+.sub-h,.sec .set > .sub-h{
+  display:flex;width:fit-content;max-width:100%;gap:0;
+  margin:clamp(2.75rem,5vw,4rem) 0 clamp(1.1rem,2vw,1.5rem);padding:.4rem .65rem .36rem;
+  background:var(--white);color:var(--ink);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  font:700 .78rem/1.25 var(--text);letter-spacing:.12em;text-transform:uppercase
+}
+.sub-h::after{display:none}
+.set > .sub-h{margin-top:0}
+.sub-h + .steps{margin-top:0}
+
+/* comic SFX stays, smaller */
+.sfx,.sec .sfx{font-size:clamp(1.4rem,2vw,2.1rem);text-shadow:2px 2px 0 var(--ink)}
+.sec--dark .sfx{text-shadow:2px 2px 0 var(--paper)}
+
+/* "more" drawers */
+.more{margin-top:clamp(2.25rem,4vw,3rem)}
+.more > summary,.sec .more > summary{border-width:2px;box-shadow:4px 4px 0 var(--s-ui-shadow);font-size:.8125rem}
+.more > summary:hover,.sec .more > summary:hover{box-shadow:6px 6px 0 var(--red)}
+
+/* process: steps as ruled columns, facts as plain ink blocks */
+.pair .piece figcaption b{font-size:1rem}
+.steps{margin-top:clamp(2.75rem,5vw,4rem)}
+.steps li{background:transparent;border:0;border-top:2px solid var(--ink);box-shadow:none;padding:1rem 0 0}
+.steps .n,.steps--5 .n{font:400 2.6rem/.85 var(--display);color:transparent;-webkit-text-stroke:1.25px var(--ink);text-shadow:none;margin-bottom:.75rem}
+.steps h3,.steps--5 h3{font-size:clamp(1.25rem,1.1rem + .35vw,1.45rem);margin-bottom:.45rem}
+.steps p,.steps--5 p{color:#2E2B26;font-size:.96875rem}
+.facts__item{border:0;box-shadow:none;padding:1.5rem 1.6rem 1.4rem}
+@media(forced-colors:active){.steps .n{color:CanvasText;-webkit-text-stroke:0}}
+@media(max-width:900px){
+  /* one column of steps: number beside the text, not above it */
+  .steps li{display:grid;grid-template-columns:3.25rem minmax(0,1fr);column-gap:.75rem;padding-top:.9rem}
+  .steps .n,.steps--5 .n{grid-row:1/span 2;margin:0;font-size:2.4rem}
+  .steps h3{margin-bottom:.3rem}
+}
+
+/* ══ CONTACT ════════════════════════════════════════════════════════ */
+.contact{padding:clamp(4rem,8vw,7rem) 0;border-top:2px solid var(--ink)}
+.contact h2{font-size:clamp(2.9rem,1.5rem + 5.2vw,6.25rem);line-height:.9}
+.contact .tag{border-color:var(--yel);box-shadow:3px 3px 0 var(--red)}
+.bubble{border-width:3px;box-shadow:8px 8px 0 var(--yel);font-size:clamp(1.0625rem,1rem + .2vw,1.1875rem)}
+
+/* ══ LIGHTBOX: calm, no frame ═══════════════════════════════════════ */
+.lb__img{border:0;box-shadow:none}
+
+@media(prefers-reduced-motion:reduce){
+  .zoom:hover img,.zoom:focus-visible img,.sec .zoom:hover img,.sec .zoom:focus-visible img,
+  .stack__p .zoom:hover img,.stack__p .zoom:focus-visible img{transform:none}
 }
