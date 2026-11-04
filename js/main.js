@@ -62,16 +62,6 @@
     all('main section[id], main .hero').forEach(function (s) { spy.observe(s); });
   }
 
-  /* ── ticker pause button ────────────────────────────────────── */
-  var tickBtn = $('tickerPause');
-  if (tickBtn) {
-    tickBtn.addEventListener('click', function () {
-      var paused = tickBtn.getAttribute('aria-pressed') !== 'true';
-      tickBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
-      tickBtn.parentNode.classList.toggle('is-paused', paused);
-    });
-  }
-
   /* ── reveal on scroll (skipped when the visitor prefers less motion) ── */
   if (!reduce && 'IntersectionObserver' in window) {
     var targets = all('.sec__head, .row, .covers > .piece, .pages > .pg, .pair > *, .sketches > .piece, .guides > .piece, .guides-cover, .steps li, .contact .wrap > *');
