@@ -773,6 +773,12 @@ h3{font-size:clamp(1.25rem,1.15rem + .4vw,1.5rem)}
 .contact h2{font-size:clamp(2.9rem,1.5rem + 5.2vw,6.25rem);line-height:.9}
 .contact .tag{border-color:var(--yel);box-shadow:3px 3px 0 var(--red)}
 .bubble{border-width:3px;box-shadow:8px 8px 0 var(--yel);font-size:clamp(1.0625rem,1rem + .2vw,1.1875rem)}
+/* Upwork profile button: yellow, so it reads on the ink */
+.contact__cta{margin:clamp(3.75rem,6vw,4.5rem) 0 0}
+.btn--yel{background:var(--yel);color:var(--ink);border-color:var(--yel);box-shadow:5px 5px 0 var(--red)}
+.btn--yel:hover{background:var(--white);border-color:var(--white);box-shadow:7px 7px 0 var(--red)}
+.btn--yel:active{box-shadow:2px 2px 0 var(--red)}
+.contact__cta + .contact__meta{margin-top:2.25rem}
 
 /* ══ LIGHTBOX: calm, no frame ═══════════════════════════════════════ */
 .lb__img{border:0;box-shadow:none}
